@@ -9,4 +9,7 @@ export const Wrapper = styled.aside`
     font-size: 25px;
     text-align: center;
   }
+  hr {
+    border: 1px solid lightblue;
+  }
 `;
