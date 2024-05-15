@@ -35,7 +35,7 @@ const App = () => {
       // is the item already add to cart?
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
       if (isItemInCart) {
-        prev.map((item) =>
+        return prev.map((item) =>
           item.id === clickedItem.id
             ? { ...item, amount: item.amount + 1 }
             : item
@@ -46,7 +46,18 @@ const App = () => {
     });
   };
 
-  const handelRemoveFromCart = () => null;
+  const handelRemoveFromCart = (id: number) => {
+    setCartItems((prev) =>
+      prev.reduce((ack, item) => {
+        if (item.id === id) {
+          if (item.amount === 1) return ack;
+          return [...ack, { ...item, amount: item.amount - 1 }];
+        } else {
+          return [...ack, item];
+        }
+      }, [] as CartItemType[])
+    );
+  };
 
   if (isLoading) return <LinearProgress />;
   if (error) return <div>somthing went error ...</div>;
